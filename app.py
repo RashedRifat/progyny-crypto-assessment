@@ -10,7 +10,8 @@ from dotenv import find_dotenv, load_dotenv
 from custom_logging.log import logger
 
 def run():
-    load_dotenv(find_dotenv(raise_error_if_not_found=True))
+    """Run the application! 
+    """
 
     # Create engine and setup the database 
     engine = create_engine(f"sqlite:///{os.getenv('DB_HOST')}", echo=True)
@@ -50,4 +51,5 @@ def run():
         logger.info(display_position_balance(position, ca.get_current_price(position.coin_id)))
 
 if __name__ == "__main__":
+    load_dotenv(find_dotenv(raise_error_if_not_found=True))
     run()

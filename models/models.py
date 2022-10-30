@@ -30,7 +30,7 @@ class Portfolio_Item(Base):
     """
 
     __tablename__ = "portfolio"
-    coin_id = Column(String, primary_key=True)
+    coin_id = Column(String, primary_key=True)  # No Foreign Key relationship for simplicity, discussed within improvements
     symbol = Column(String)
     name = Column(String)
     cost_basis = Column(DECIMAL(10,7, asdecimal=False))
