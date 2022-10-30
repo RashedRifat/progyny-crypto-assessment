@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, DateTime, Sequence, Numeric
+from sqlalchemy.dialects.sqlite import DECIMAL
 from datetime import datetime
 from models.meta import Base
 
@@ -9,15 +10,16 @@ class Transaction(Base):
     __tablename__ = "transactions"
     id = Column(Integer, Sequence("transaction_id_seq") ,primary_key=True)
     timestamp = Column(DateTime, default=datetime.utcnow)
+    coin_id = Column(String)
     symbol = Column(String)
     name = Column(String)
-    current_price = Column(Numeric(10,7))
-    historical_average = Column(Numeric(10,7))
+    current_price = Column(DECIMAL(10,7))
+    historical_average = Column(DECIMAL(10,7))
     purchased = Column(Integer)  # storing trade data in the same table to avoid data redundancy 
 
     def __str__(self) -> str:
-        return 'ID: {} Timestamp: {} Symbol: {} Name: {} Current_Price: {} Historical Average: {} Purchased: {}'.format(
-            self.id, self.timestamp, self.symbol, self.name, self.current_price, self.historical_average, self.purchased
+        return 'ID: {} Timestamp: {} Coin_ID: {} Symbol: {} Name: {} Current_Price: {} Historical Average: {} Purchased: {}'.format(
+            self.id, self.timestamp, self.coin_id, self.symbol, self.name, self.current_price, self.historical_average, self.purchased
         )
 
     def __repr__(self) -> str:
@@ -28,14 +30,15 @@ class Portfolio_Item(Base):
     """
 
     __tablename__ = "portfolio"
-    id = Column(Integer, Sequence("portfolio_id_seq") ,primary_key=True)
+    coin_id = Column(String, primary_key=True)
     symbol = Column(String)
-    cost_basis = Column(Numeric(10,2))
+    name = Column(String)
+    cost_basis = Column(DECIMAL(10,7, asdecimal=False))
     coins_held = Column(Integer)
 
     def __str__(self) -> str:
-        return 'ID: {} Symbol: {} Cost_Basis: {} Coins_Held: {}'.format(
-            self.id, self.symbol, self.cost_basis, self.coins_held
+        return 'Coin_ID: {} Symbol: {} Name: {} Cost_Basis: {} Coins_Held: {}'.format(
+            self.coin_id, self.symbol, self.name, self.cost_basis, self.coins_held
         )
 
     def __repr__(self) -> str:

@@ -1,6 +1,7 @@
 """Crypto API."""
 
 from typing import Dict, List
+from urllib import response
 
 import requests
 
@@ -33,3 +34,8 @@ def submit_order(coin_id: str, quantity: int, bid: float):
     Assume order went through successfully and the return value is the price the order was filled at.
     """
     return bid
+
+def get_current_price(coin_id : str) -> float:
+    response = requests.get(f"https://api.coingecko.com/api/v3/simple/price?ids={coin_id}&vs_currencies=usd")
+
+    return response.json()[coin_id]["usd"]
