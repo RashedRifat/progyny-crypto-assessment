@@ -2,6 +2,9 @@
 *.db 
 *.zip
 */*/.DS_STORE
+current_top.json
+dev.ipynb
+TODO.md
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
