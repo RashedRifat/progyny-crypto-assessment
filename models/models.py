@@ -18,9 +18,9 @@ class Transaction(Base):
     purchased = Column(Integer)  # storing trade data in the same table to avoid data redundancy 
 
     def __str__(self) -> str:
-        return 'ID: {} Timestamp: {} Coin_ID: {} Symbol: {} Name: {} Current_Price: {} Historical Average: {} Purchased: {}'.format(
-            self.id, self.timestamp, self.coin_id, self.symbol, self.name, self.current_price, self.historical_average, self.purchased
-        )
+        return f"TRANSACTION - Coin_ID: {self.coin_id}, Symbol: {self.symbol}, " + \
+            f"Name: {self.name}, Current_Price: {self.current_price}, " + \
+            f"Historical Average: {self.historical_average}, Purchased: {self.purchased}"
 
     def __repr__(self) -> str:
         return self.__str__()
@@ -37,9 +37,8 @@ class Portfolio_Item(Base):
     coins_held = Column(Integer)
 
     def __str__(self) -> str:
-        return 'Coin_ID: {} Symbol: {} Name: {} Cost_Basis: {} Coins_Held: {}'.format(
-            self.coin_id, self.symbol, self.name, self.cost_basis, self.coins_held
-        )
+        return f"PORTFOLIO_ITEM - Coin_ID: {self.coin_id}, Symbol: {self.symbol}, " + \
+            f"Name: {self.name}, Cost_Basis: {self.cost_basis}, Coins_Held: {self.coins_held}"
 
     def __repr__(self) -> str:
         return self.__str__()

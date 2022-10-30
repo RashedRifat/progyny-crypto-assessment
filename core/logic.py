@@ -36,15 +36,36 @@ def get_data() -> Dict:
     return data
 
 
-def update_cost_basis(position : Portfolio_Item, bid : float) -> float:
+def update_cost_basis(position : Portfolio_Item, bid : float, quantity : int = 1) -> float:
+    """Returns the updated cost basis for a position
+
+    Args:
+        position (Portfolio_Item): the portfolio item representing the position
+        bid (float): the current bid
+        quantity (int, optional): quantity of coins to purchase. Defaults to 1.
+
+    Returns:
+        float: the updated cost basis. The position item is left unchanged
+    """
+
     prev_basis = position.cost_basis * position.coins_held
-    new_basis = (prev_basis + bid) / (position.coins_held + 1)
+    new_basis = (prev_basis + bid) / (position.coins_held + quantity)
     return new_basis
 
 def display_position_balance(position : Portfolio_Item, current_price : float) -> str:
+    """Displays the current status of a position
+
+    Args:
+        position (Portfolio_Item): the position to display the balance for
+        current_price (float): the current price of the position asset
+
+    Returns:
+        str: a description of the position, including name, symbol, coins held
+            and percent change (gain or loss) of the position. 
+    """
+
     pct_change = (current_price - position.cost_basis) / position.cost_basis
     pct_change = round(pct_change * 100, 2)
 
-    return 'Name: {} Symbol: {} Coins_Held: {} Percent_Change: {:.2f}%'.format(
-        position.name, position.symbol, position.coin_id, pct_change
-    )
+    return f"PORTFOLIO_POSITION - Name: {position.name}, Symbol: {position.symbol}, " + \
+        f"Coins_Held: {position.coins_held} Percent_Change: {pct_change:.2f}%"

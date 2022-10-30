@@ -36,6 +36,14 @@ def submit_order(coin_id: str, quantity: int, bid: float):
     return bid
 
 def get_current_price(coin_id : str) -> float:
+    """Retrieves te current price of a coin in USD
+
+    Args:
+        coin_id (str): the id of the coin
+
+    Returns:
+        float: the current price of the coin in USD
+    """
     response = requests.get(f"https://api.coingecko.com/api/v3/simple/price?ids={coin_id}&vs_currencies=usd")
 
     return response.json()[coin_id]["usd"]
